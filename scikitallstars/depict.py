@@ -268,7 +268,7 @@ def all_classification_metrics(objective, X_test, y_test):
             data,
             counterclock=False,
             startangle=90,
-            autopct=lambda x: "{}".format(int(x * sum(data) / 100)),
+            autopct=lambda x: "{:.0f}".format(x * sum(data) / 100),
             labels=["TP", "FN", "FP", "TN"],
             wedgeprops=dict(width=1, edgecolor="w"),
             colors=["skyblue", "orange", "tan", "lime"],
