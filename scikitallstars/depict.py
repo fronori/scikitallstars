@@ -147,6 +147,12 @@ def regression_metrics(model, X_train, y_train, X_test=None, y_test=None):
         axes[1].set_ylabel("Predicted")
     plt.show()
 
+def make_autopct(values):
+    def my_autopct(pct):
+        total = sum(values)
+        val = int(round(pct*total/100.0))
+        return '{v:d}'.format(v=val)
+    return my_autopct
 
 def classification_metrics(model, X_train, y_train, X_test, y_test):
     if model.support is not None:
@@ -185,7 +191,7 @@ def classification_metrics(model, X_train, y_train, X_test, y_test):
             data,
             counterclock=False,
             startangle=90,
-            autopct=lambda x: "{:.0f}".format(round(x * sum(data) / 100)),
+            autopct=make_autopct(data),
             labels=["TP", "FN", "FP", "TN"],
             wedgeprops=dict(width=1, edgecolor="w"),
             colors=["skyblue", "orange", "tan", "lime"],
@@ -268,7 +274,7 @@ def all_classification_metrics(objective, X_test, y_test):
             data,
             counterclock=False,
             startangle=90,
-            autopct=lambda x: "{:.0f}".format(round(x * sum(data) / 100)),
+            autopct=make_autopct(data),
             labels=["TP", "FN", "FP", "TN"],
             wedgeprops=dict(width=1, edgecolor="w"),
             colors=["skyblue", "orange", "tan", "lime"],
